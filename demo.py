@@ -14,7 +14,7 @@ vehicle = connect(args.connect, baud=921600, wait_ready=True)
 # Function to arm and then takeoff to a user specified altitude
 def arm_and_takeoff(aTargetAltitude):
 
-  print "Basic pre-arm checks"
+  print ("Basic pre-arm checks")
   # Don't let the user try to arm until autopilot is ready
   while not vehicle.is_armable:
     print (" Waiting for vehicle to initialise...")
@@ -29,7 +29,7 @@ def arm_and_takeoff(aTargetAltitude):
     print (" Waiting for arming...")
     time.sleep(1)
 
-  print "Taking off!"
+  print ("Taking off!")
   vehicle.simple_takeoff(aTargetAltitude) # Take off to target altitude
 
   # Check that vehicle has reached takeoff altitude
@@ -37,7 +37,7 @@ def arm_and_takeoff(aTargetAltitude):
     print (" Altitude: ", vehicle.location.global_relative_frame.alt) 
     #Break and return from function just below target altitude.        
     if vehicle.location.global_relative_frame.alt>=aTargetAltitude*0.95: 
-      print "Reached target altitude"
+      print ("Reached target altitude")
       break
     time.sleep(1)
 
