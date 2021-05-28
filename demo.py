@@ -2,15 +2,17 @@ from dronekit import connect, VehicleMode, LocationGlobalRelative
 from pymavlink import mavutil
 import time
 import argparse  
-parser = argparse.ArgumentParser()
-parser.add_argument('--connect')
-args = parser.parse_args()
-connection = args.connect
-# Connect to the Vehicle
-print ('Connecting')
-vehicle = connect(connection, baud=57600,wait_ready=True)
-#921600 is the baudrate that you have set in the mission plannar or qgc
 
+def connect_my_copter():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--connect')
+    args = parser.parse_args()
+
+    # Connect to the Vehicle
+    print ('Connecting to vehicle on: %s' % args.connect)
+    vehicle = connect(args.connect, baud=57600, wait_ready=True)
+    #921600 is the baudrate that you have set in the mission plannar or qgc
+    return vehicle
 # Function to arm and then takeoff to a user specified altitude
 def arm_and_takeoff(aTargetAltitude):
 
@@ -41,6 +43,7 @@ def arm_and_takeoff(aTargetAltitude):
       break
     time.sleep(1)
 
+vehicle = connect_my_copter()
 # Initialize the takeoff sequence to 15m
 arm_and_takeoff(15)
 
