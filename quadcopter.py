@@ -10,7 +10,7 @@ def connectMyCopter():
 
     # Connect to the Vehicle
     print ('Connecting to vehicle: %s' % args.connect)
-    vehicle = connect(args.connect, wait_ready=True)
+    vehicle = connect('udp:127.0.0.1:14551', wait_ready=True)
     return vehicle
     
 vehicle = connectMyCopter()
