@@ -3,7 +3,7 @@ from pymavlink import mavutil
 import time
 import argparse  
 parser = argparse.ArgumentParser()
-parser.add_argument('--connect', default='127.0.0.1:14550')
+parser.add_argument('--connect')
 args = parser.parse_args()
 
 # Connect to the Vehicle
