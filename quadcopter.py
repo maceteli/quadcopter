@@ -52,14 +52,14 @@ arm_and_takeoff(10)
 print("Set default/target airspeed to 3")
 vehicle.airspeed = 3
 
-print("Going towards first point for 30 seconds ...")
+print("Travelling to waypoint 1 ...")
 point1 = LocationGlobalRelative(7.606652, 5.307476, 20)
 vehicle.simple_goto(point1)
 
 # sleep so we can see the change in map
 time.sleep(30)
 
-print("Going towards second point for 30 seconds (groundspeed set to 10 m/s) ...")
+print("Travelling to waypoint 2 (groundspeed set to 10 m/s) ...")
 point2 = LocationGlobalRelative(7.606472, 5.307497, 20)
 vehicle.simple_goto(point2, groundspeed=10)
 
