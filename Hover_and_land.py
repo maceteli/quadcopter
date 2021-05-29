@@ -3,14 +3,13 @@ from pymavlink import mavutil
 import time
 
 import argparse  
-parser = argparse.ArgumentParser()
-parser.add_argument('--connect', default='127.0.0.1:14550')    
+parser = argparse.ArgumentParser(description='commands')
+parser.add_argument('--connect')
 args = parser.parse_args()
 
 # Connect to the Vehicle
-print ('Connecting to vehicle on: %s' % args.connect)
-vehicle = connect(args.connect, baud=57600, wait_ready=True)
-
+print ('Connecting to vehicle: %s' % args.connect)
+vehicle = connect('udp:127.0.0.1:14551')
 # Function to arm and then takeoff to a user specified altitude
 def arm_and_takeoff(aTargetAltitude):
 
@@ -20,10 +19,10 @@ def arm_and_takeoff(aTargetAltitude):
         
   print ("Arming motors")
   # Copter should arm in GUIDED mode
-  vehicle.mode    = VehicleMode("GUIDED")
+  vehicle.mode    = VehicleMode("")
   vehicle.armed   = True
 
-
+  
 
   print ("Taking off!")
   vehicle.simple_takeoff(aTargetAltitude) # Take off to target altitude
@@ -55,54 +54,10 @@ def Land():
 
 ##-------------------------------------------------------------------------------------------------------------------------------
 
-arm_and_takeoff(20) ##------------ arm and reach 20m alt 
+arm_and_takeoff(2) ##------------ arm and reach 20m alt 
 
 time.sleep(10)
 
 Land()
 ##-------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
 
