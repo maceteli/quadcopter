@@ -33,9 +33,18 @@ def arm_and_takeoff(aTargetAltitude):
         print("vehicle armed successful")
         print("Taking off!")
         vehicle.simple_takeoff(aTargetAltitude)  # Take off to target altitude
+        # Check that vehicle has reached takeoff altitude
+        while True:
+            print (" Altitude: ", vehicle.location.global_relative_frame.alt) 
+            #Break and return from function just below target altitude.        
+            if vehicle.location.global_relative_frame.alt>=aTargetAltitude*0.95: 
+              print ("Reached target altitude")
+              break
+            time.sleep(1)
         
     else:
         print("vehicle armed unsuccesful")
+        vechile.close()
         
 def Land():
 ##This function ensures that the vehicle has landed (before vechile.close is called)
