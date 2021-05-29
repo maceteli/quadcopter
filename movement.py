@@ -29,11 +29,6 @@ print ('Connecting to vehicle: %s' % args.connect)
 vehicle = connect('udp:127.0.0.1:14551')
 
 
-#Start SITL if no connection string specified
-if not connection_string:
-    import dronekit_sitl
-    sitl = dronekit_sitl.start_default()
-    connection_string = sitl.connection_string()
 
 
 def arm_and_takeoff(aTargetAltitude):
@@ -426,8 +421,6 @@ vehicle.mode = VehicleMode("LAND")
 print("Close vehicle object")
 vehicle.close()
 
-# Shut down simulator if it was started.
-if sitl is not None:
-    sitl.stop()
+
 
 print("Completed")
