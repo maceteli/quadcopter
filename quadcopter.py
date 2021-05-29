@@ -34,7 +34,7 @@ def arm_and_takeoff():
         print("vehicle disarming")
         vehicle.armed = False
         
-    else
+    else:
         print("vehicle armed unsuccesful")
     
 
