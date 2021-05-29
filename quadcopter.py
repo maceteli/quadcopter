@@ -11,7 +11,7 @@ args = parser.parse_args()
 print ('Connecting to vehicle: %s' % args.connect)
 vehicle = connect('udp:127.0.0.1:14551')
     
-def arm_and_takeoff(aTargetAltitude):
+def arm_and_takeoff():
     """
     Arms vehicle and fly to aTargetAltitude.
     """
@@ -20,55 +20,28 @@ def arm_and_takeoff(aTargetAltitude):
     # Don't try to arm until autopilot is ready
     while not vehicle.is_armable:
        print(" Waiting for vehicle to initialise...")
-       time.sleep(1)
+       time.sleep(10)
 
     print("Arming motors")
     # Copter should arm in GUIDED mode
     vehicle.mode = VehicleMode("GUIDED")
     vehicle.armed = True
-
+        
+    time.sleep(10)
     # Confirm vehicle armed before attempting to take off
-    while not vehicle.armed:
-        print(" Waiting for arming...")
-        time.sleep(1)
-
-    print("Taking off!")
-    vehicle.simple_takeoff(aTargetAltitude)  # Take off to target altitude
-
-    # Wait until the vehicle reaches a safe height before processing the goto
-    #  (otherwise the command after Vehicle.simple_takeoff will execute
-    #   immediately).
-    while True:
-        print(" Altitude: ", vehicle.location.global_relative_frame.alt)
-        # Break and return from function just below target altitude.
-        if vehicle.location.global_relative_frame.alt >= aTargetAltitude * 0.95:
-            print("Reached target altitude")
-            break
-        time.sleep(1)
+    if(vehicle.armed == true):
+        print("vehicle armed successful")
+        print("vehicle disarming")
+        vehicle.armed = False
+        
+    else
+        print("vehicle armed unsuccesful")
+    
 
 
-arm_and_takeoff(3)
+arm_and_takeoff()
 
-print("Set default/target airspeed to 3")
-vehicle.airspeed = 0.05
-
-print("Travelling to waypoint 1 ...")
-point1 = LocationGlobalRelative(7.606652, 5.307476, 3)
-vehicle.simple_goto(point1)
-
-# sleep so we can see the change in map
-time.sleep(30)
-
-print("Travelling to waypoint 2 (groundspeed set to 10 m/s) ...")
-point2 = LocationGlobalRelative(7.606472, 5.307497, 3)
-vehicle.simple_goto(point2, groundspeed=0.09)
-
-# sleep so we can see the change in map
-time.sleep(30)
-
-print("Returning to Launch")
-vehicle.mode = VehicleMode("RTL")
-
+time.sleep(10)
 # Close vehicle object before exiting script
 print("Close vehicle object")
 vehicle.close()
