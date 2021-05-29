@@ -18,9 +18,9 @@ def arm_and_takeoff(aTargetAltitude):
 
     print("Basic pre-arm checks")
     # Don't try to arm until autopilot is ready
-    #while not vehicle.is_armable:
-    #   print(" Waiting for vehicle to initialise...")
-    #   time.sleep(1)
+    while not vehicle.is_armable:
+       print(" Waiting for vehicle to initialise...")
+       time.sleep(1)
 
     print("Arming motors")
     # Copter should arm in GUIDED mode
@@ -28,9 +28,9 @@ def arm_and_takeoff(aTargetAltitude):
     vehicle.armed = True
 
     # Confirm vehicle armed before attempting to take off
-    #while not vehicle.armed:
-    #    print(" Waiting for arming...")
-    #    time.sleep(1)
+    while not vehicle.armed:
+        print(" Waiting for arming...")
+        time.sleep(1)
 
     print("Taking off!")
     vehicle.simple_takeoff(aTargetAltitude)  # Take off to target altitude
@@ -50,7 +50,7 @@ def arm_and_takeoff(aTargetAltitude):
 arm_and_takeoff(3)
 
 print("Set default/target airspeed to 3")
-vehicle.airspeed = 3
+vehicle.airspeed = 0.05
 
 print("Travelling to waypoint 1 ...")
 point1 = LocationGlobalRelative(7.606652, 5.307476, 3)
@@ -61,7 +61,7 @@ time.sleep(30)
 
 print("Travelling to waypoint 2 (groundspeed set to 10 m/s) ...")
 point2 = LocationGlobalRelative(7.606472, 5.307497, 3)
-vehicle.simple_goto(point2, groundspeed=10)
+vehicle.simple_goto(point2, groundspeed=0.09)
 
 # sleep so we can see the change in map
 time.sleep(30)
